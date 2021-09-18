@@ -50,22 +50,18 @@ class MyApp extends StatelessWidget {
   // ];
 
   List<String> tambak = [
-    "tambak0",
-    "tambak1",
-    "tambak2",
-    "tambak3",
-    "tambak4",
-    "tambak5",
-    "tambak6",
-    "tambak7",
-    "tambak8",
-    "tambak9"
+    "Tambak Udang",
+    "Tambak Lele",
+    "Tambak Nila",
+    "Tambak Patin"
   ];
 
-  List<String> variable = ["suhu", "ph", "salinitas", "kesadahan"];
+  List<String> variable = ["Suhu", "pH", "Salinitas", "Kesadahan"];
 
   Color card_color = Colors.blue;
   Color splash_color = Colors.blue;
+
+  String unit = "";
 
   @override
   Widget build(BuildContext context) {
@@ -124,30 +120,85 @@ class MyApp extends StatelessWidget {
             children: List.generate(
               tambak.length,
               (index) {
-                return GridView.count(
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                  crossAxisCount: 2,
-                  padding: EdgeInsets.all(20),
-                  shrinkWrap: true,
-                  children: List.generate(
-                    variable.length,
-                    (i) {
-                      if (i == 0) {
-                        card_color = Colors.lightBlue;
-                        splash_color = Colors.blue.shade800;
-                      } else if (i == 1) {
-                        card_color = Colors.purple.shade400;
-                        splash_color = Colors.deepPurple;
-                      } else if (i == 2) {
-                        card_color = Colors.amber;
-                        splash_color = Colors.deepOrange;
-                      } else if (i == 3) {
-                        card_color = Colors.lightGreen;
-                        splash_color = Colors.teal;
-                      }
-                      return Card(
-                        color: card_color,
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GridView.count(
+                      shrinkWrap: true,
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20,
+                      crossAxisCount: 2,
+                      padding: EdgeInsets.all(20),
+                      children: List.generate(
+                        variable.length,
+                        (i) {
+                          if (i == 0) {
+                            card_color = Colors.lightBlue;
+                            splash_color = Colors.blue.shade800;
+                            unit = "°C";
+                          } else if (i == 1) {
+                            card_color = Colors.purple.shade400;
+                            splash_color = Colors.deepPurple;
+                            unit = "";
+                          } else if (i == 2) {
+                            card_color = Colors.amber;
+                            splash_color = Colors.deepOrange;
+                            unit = "‰";
+                          } else if (i == 3) {
+                            card_color = Colors.lightGreen;
+                            splash_color = Colors.teal;
+                            unit = "mg/L";
+                          }
+                          return Card(
+                            color: card_color,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: InkWell(
+                              customBorder: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              splashColor: splash_color,
+                              onTap: () {},
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: SvgPicture.asset(
+                                      'assets/' + variable[i] + '.svg',
+                                      height: 50,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    "50 " + unit,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 32,
+                                    ),
+                                  ),
+                                  Text(
+                                    variable[i],
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
+                      height: 150,
+                      width: double.infinity,
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                      child: Card(
+                        color: Colors.red[400],
                         elevation: 10,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -156,77 +207,69 @@ class MyApp extends StatelessWidget {
                           customBorder: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          splashColor: splash_color,
+                          splashColor: Colors.red[700],
                           onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               SvgPicture.asset(
-                                'assets/' + variable[i] + '.svg',
+                                'assets/Feed.svg',
                                 height: 50,
                                 color: Colors.white,
                               ),
-                              Text(
-                                "50°",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32,
-                                ),
-                              ),
-                              Text(
-                                variable[i],
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "09:00",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 32,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
+                                          "dan",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "15:00",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 32,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Automatic Feeder',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
-            // Card(
-            //             color: card_color,
-            //             elevation: 10,
-            //             shape: RoundedRectangleBorder(
-            //               borderRadius: BorderRadius.circular(16),
-            //             ),
-            //             child: InkWell(
-            //               customBorder: RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(16),
-            //               ),
-            //               splashColor: splash_color,
-            //               onTap: () {},
-            //               child: Column(
-            //                 mainAxisAlignment: MainAxisAlignment.center,
-            //                 children: [
-            //                   SvgPicture.asset(
-            //                     'assets/feed.svg',
-            //                     height: 50,
-            //                     color: Colors.white,
-            //                   ),
-            //                   Text(
-            //                     "50°",
-            //                     style: TextStyle(
-            //                       color: Colors.white,
-            //                       fontSize: 32,
-            //                     ),
-            //                   ),
-            //                   Text(
-            //                     'Automatic Feeder',
-            //                     style: TextStyle(
-            //                       color: Colors.white,
-            //                       fontSize: 16,
-            //                     ),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
           ),
         ),
       ),
