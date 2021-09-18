@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(MyApp());
@@ -62,6 +63,9 @@ class MyApp extends StatelessWidget {
   ];
 
   List<String> variable = ["suhu", "ph", "salinitas", "kesadahan"];
+
+  Color card_color = Colors.blue;
+  Color splash_color = Colors.blue;
 
   @override
   Widget build(BuildContext context) {
@@ -129,22 +133,38 @@ class MyApp extends StatelessWidget {
                   children: List.generate(
                     variable.length,
                     (i) {
+                      if (i == 0) {
+                        card_color = Colors.lightBlue;
+                        splash_color = Colors.blue.shade800;
+                      } else if (i == 1) {
+                        card_color = Colors.purple.shade400;
+                        splash_color = Colors.deepPurple;
+                      } else if (i == 2) {
+                        card_color = Colors.amber;
+                        splash_color = Colors.deepOrange;
+                      } else if (i == 3) {
+                        card_color = Colors.lightGreen;
+                        splash_color = Colors.teal;
+                      }
                       return Card(
-                        color: Colors.blue,
+                        color: card_color,
                         elevation: 10,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: InkWell(
-                          splashColor: Colors.red,
+                          customBorder: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          splashColor: splash_color,
                           onTap: () {},
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                                size: 64,
+                              SvgPicture.asset(
+                                'assets/' + variable[i] + '.svg',
+                                height: 50,
+                                color: Colors.white,
                               ),
                               Text(
                                 "50°",
@@ -169,6 +189,44 @@ class MyApp extends StatelessWidget {
                 );
               },
             ),
+            // Card(
+            //             color: card_color,
+            //             elevation: 10,
+            //             shape: RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(16),
+            //             ),
+            //             child: InkWell(
+            //               customBorder: RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(16),
+            //               ),
+            //               splashColor: splash_color,
+            //               onTap: () {},
+            //               child: Column(
+            //                 mainAxisAlignment: MainAxisAlignment.center,
+            //                 children: [
+            //                   SvgPicture.asset(
+            //                     'assets/feed.svg',
+            //                     height: 50,
+            //                     color: Colors.white,
+            //                   ),
+            //                   Text(
+            //                     "50°",
+            //                     style: TextStyle(
+            //                       color: Colors.white,
+            //                       fontSize: 32,
+            //                     ),
+            //                   ),
+            //                   Text(
+            //                     'Automatic Feeder',
+            //                     style: TextStyle(
+            //                       color: Colors.white,
+            //                       fontSize: 16,
+            //                     ),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
           ),
         ),
       ),
