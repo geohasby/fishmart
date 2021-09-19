@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:math';
 
 void main() {
   runApp(MyApp());
@@ -62,6 +63,10 @@ class MyApp extends StatelessWidget {
   Color splash_color = Colors.blue;
 
   String unit = "";
+
+  String value = "";
+
+  var rng = new Random();
 
   @override
   Widget build(BuildContext context) {
@@ -135,19 +140,24 @@ class MyApp extends StatelessWidget {
                           if (i == 0) {
                             card_color = Colors.lightBlue;
                             splash_color = Colors.blue.shade800;
+                            value = (rng.nextInt(10) + 20).toInt().toString();
                             unit = "°C";
                           } else if (i == 1) {
                             card_color = Colors.purple.shade400;
                             splash_color = Colors.deepPurple;
+                            value =
+                                (rng.nextInt(26) / 10 + 6.7).toStringAsFixed(1);
                             unit = "";
                           } else if (i == 2) {
                             card_color = Colors.amber;
                             splash_color = Colors.deepOrange;
+                            value = (rng.nextInt(25) + 10).toInt().toString();
                             unit = "‰";
                           } else if (i == 3) {
                             card_color = Colors.lightGreen;
                             splash_color = Colors.teal;
-                            unit = "mg/L";
+                            value = (rng.nextInt(30) + 105).toInt().toString();
+                            unit = " mg/L";
                           }
                           return Card(
                             color: card_color,
@@ -173,7 +183,7 @@ class MyApp extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    "50 " + unit,
+                                    value + unit,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 32,
@@ -183,7 +193,7 @@ class MyApp extends StatelessWidget {
                                     variable[i],
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],
@@ -256,7 +266,7 @@ class MyApp extends StatelessWidget {
                                     'Automatic Feeder',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 18,
                                     ),
                                   ),
                                 ],
