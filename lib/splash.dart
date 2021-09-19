@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Splash extends StatelessWidget {
   @override
@@ -12,7 +13,15 @@ class Splash extends StatelessWidget {
           : const Color(0x00042a49).withOpacity(1.0),
       body: Center(
           child: lightMode
-              ? Image.asset('assets/flutter.png')
+              ? Container(
+                  padding: EdgeInsets.all(40),
+                  decoration: BoxDecoration(
+                      color: Colors.blueGrey[50], shape: BoxShape.circle),
+                  child: SvgPicture.asset(
+                    'assets/fish.svg',
+                    height: 80,
+                  ),
+                )
               : Image.asset('assets/splash_dark.png')),
     );
   }
